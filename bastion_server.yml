@@ -1,8 +1,8 @@
 Description: >
-  Udagram WeB Bastion Host Setup
+  Udagram Web App Bastion Host Setup
 Parameters:
   EnvironmentName:
-    Description: Env Name that will be prefixed in order to access Variables exported from our networking Resources
+    Description: Environment name that will be prefixed to resource variables
     Type: String
 
 Resources:
@@ -27,7 +27,7 @@ Resources:
   WebServerSecGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow http / SSH only from local VPC
+      GroupDescription: Local VPC granted access via SSH/HTTP
       VpcId:
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
       GroupName: Security Group for WebServer internal traffic
@@ -46,7 +46,7 @@ Resources:
           ToPort: 22
           IpProtocol: tcp
 
-  BastionIamRole:
+  BastionIAMRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -60,7 +60,7 @@ Resources:
               - sts:AssumeRole
       Path: "/"
 
-  BastionIamPolicies:
+  BastionIAMPolicies:
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: fullAccess
@@ -71,16 +71,16 @@ Resources:
             Action: "s3:*"
             Resource: "*"
       Roles:
-        - !Ref BastionIamRole
+        - !Ref BastionIAMRole
 
   BastionIamInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Path: "/"
       Roles:
-        - !Ref BastionIamRole
+        - !Ref BastionIAMRole
 
-  BastionEC20:
+  BastionEC2Server:
     Type: AWS::EC2::Instance
     DependsOn:
         - WebServerSecGroup
@@ -108,12 +108,11 @@ Resources:
             Ebs:
               VolumeSize: "10"
               DeleteOnTermination: true
-              VolumeType: "gp2"
         InstanceType: t3.small
-        KeyName: vino
+        KeyName: bastion
 
 
 Outputs:
   Website:
-    Description: The Public DNS for the EC2 Instance
-    Value: !Join ["", ["http://", !GetAtt [BastionEC20, PublicDnsName]]]
+    Description: Public DNS for the EC2 Instance
+    Value: !Join ["", ["http://", !GetAtt [BastionEC2Server, PublicDnsName]]]

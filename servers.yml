@@ -2,7 +2,7 @@ Description: >
   Udagram Web App Server Infrastructure
 Parameters:
   EnvironmentName:
-    Description: Env Name that will be prefixed in order to access Variables exported from our networking Resources
+    Description: Environment name that will be prefixed to resource variables
     Type: String
 
 
@@ -10,7 +10,7 @@ Resources:
   LBSecGroup:
       Type: AWS::EC2::SecurityGroup
       Properties:
-        GroupDescription: Allow hhtp to Load Balanacer
+        GroupDescription: Load Balanacer granted HTTP access
         VpcId:
             Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
         GroupName: Security Group for Load Balancer
@@ -28,7 +28,7 @@ Resources:
   WebServerSecGroup:
       Type: AWS::EC2::SecurityGroup
       Properties:
-        GroupDescription: Allow http / SSH only from local VPC
+        GroupDescription: Local VPC granted access via SSH/HTTP
         VpcId:
             Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
         GroupName: Security Group for WebServer internal traffic
@@ -68,18 +68,17 @@ Resources:
           Ebs:
             VolumeSize: "10"
             DeleteOnTermination: true
-            VolumeType: "gp2"
 
   WebAppGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       VPCZoneIdentifier:
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-NETS"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-SNS"
       LaunchConfigurationName:
         Ref: WebAppLaunchConfig
-      MinSize: "4"
-      MaxSize: "4"
-      DesiredCapacity: "4"
+      MinSize: "3"
+      MaxSize: "5"
+      DesiredCapacity: "3"
       TargetGroupARNs:
         - Ref: WebAppTargetGroup
 
@@ -133,5 +132,6 @@ Resources:
 
 Outputs:
   Website:
-    Description: The Public DNS of the load Balancer
+    Description: Public DNS of load balancer
     Value: !Join ["", ["http://", !GetAtt [WebAppLB, DNSName]]]
+  

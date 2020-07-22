@@ -2,7 +2,7 @@ Description: >
   Udagram Web App IAM Roles Assignment
 Parameters:
   EnvironmentName:
-    Description: Env Name that will be prefixed in order to access Variables exported from our networking Resources
+    Description: Environment name that will be prefixed to our resource variables
     Type: String
 
 Resources:
@@ -31,12 +31,12 @@ Resources:
 
 Outputs:
   IAMRoleWebApp:
-    Description: "Allow EC2 instances to manage Web App S3"
+    Description: "Allow EC2 instances to manage deployed app's S3 bucket"
     Value: !Ref IAMWebAppS3IP
     Export:
-      Name: !Sub ${EnvironmentName}-IAM-NAME
+      Name: !Sub ${EnvironmentName}-IAM
   IAMRoleWebAppArn:
-    Description: Iam Instance Profile Arn
+    Description: IAM Instance Profile Arn
     Value: !GetAtt IAMRoleWebApp.Arn
     Export:
       Name: !Sub ${EnvironmentName}-IAM-ARN
