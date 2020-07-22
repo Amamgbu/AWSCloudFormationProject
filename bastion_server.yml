@@ -46,7 +46,7 @@ Resources:
           ToPort: 22
           IpProtocol: tcp
 
-  BastionIAMRole:
+  BastionIamRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -71,14 +71,14 @@ Resources:
             Action: "s3:*"
             Resource: "*"
       Roles:
-        - !Ref BastionIAMRole
+        - !Ref BastionIamRole
 
   BastionIamInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Path: "/"
       Roles:
-        - !Ref BastionIAMRole
+        - !Ref BastionIamRole
 
   BastionEC2Server:
     Type: AWS::EC2::Instance
