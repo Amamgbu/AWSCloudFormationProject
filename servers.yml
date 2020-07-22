@@ -59,7 +59,7 @@ Resources:
           systemctl restart apache2.service
       ImageId: ami-0d1cd67c26f5fca19
       IamInstanceProfile:
-        Fn::ImportValue: !Sub "${EnvironmentName}-IAM-NAME"
+        Fn::ImportValue: !Sub "${EnvironmentName}-IAM"
       SecurityGroups:
         - Ref: WebServerSecGroup
       InstanceType: t3.small
