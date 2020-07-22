@@ -9,7 +9,7 @@ Resources:
   LBSecGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow hhtp to Load Balanacer
+      GroupDescription: Load Balanacer granted HTTP access
       VpcId:
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
       GroupName: Security Group for Load Balancer
@@ -99,7 +99,6 @@ Resources:
             systemctl restart apache2.service
         IamInstanceProfile: !Ref BastionIamInstanceProfile
         SecurityGroupIds:
-        - Ref: WebServerSecGroup
         SubnetId:
           Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
         ImageId: ami-0d1cd67c26f5fca19
@@ -109,7 +108,7 @@ Resources:
               VolumeSize: "10"
               DeleteOnTermination: true
         InstanceType: t3.small
-        KeyName: bastion
+        KeyName: vino
 
 
 Outputs:
