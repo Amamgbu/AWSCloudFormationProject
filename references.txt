@@ -1,0 +1,3 @@
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudwatchlogs.html
+https://cloud-gc.readthedocs.io/en/latest/chapter03_advanced-tutorial/iam-role.html
+https://www.thorntech.com/2018/07/s3-ec2-iam-cloudformation/

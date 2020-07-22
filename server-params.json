@@ -3,6 +3,15 @@
         "ParameterKey":"EnvironmentName",
         "ParameterValue": "Udagram"
 
+
+    }
+    {
+        "ParameterKey": "AMI-ID",
+        "ParameterValue": "ami-003634241a8fcdec0"
+    }
+    {
+        "ParameterKey":"DiskVolumeSize",
+        "ParameterValue": "10"
     }
     
 ]
