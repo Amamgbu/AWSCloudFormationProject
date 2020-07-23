@@ -1,14 +1,14 @@
 [
     {
         "ParameterKey":"EnvironmentName",
-        "ParameterValue": "Udagram"
+        "ParameterValue": "UdagramWebApp"
 
 
-    }
+    },
     {
-        "ParameterKey": "AMI-ID",
-        "ParameterValue": "ami-003634241a8fcdec0"
-    }
+        "ParameterKey": "AMIID",
+        "ParameterValue": "ami-0a4df59262c92cf19"
+    },
     {
         "ParameterKey":"DiskVolumeSize",
         "ParameterValue": "10"

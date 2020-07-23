@@ -1,12 +1,10 @@
-Description: >
-My Network Infrastructure for Udagram Web App
-
-
+Description:
+    My Network Infrastructure for Udagram Web App
 Parameters:
- EnvironmentName:
+    EnvironmentName:
         Description: An environment that will be prefixed to resources and their variables
         Type: String
-    
+        
     VpcCIDR:
         Description: Please enter the IP range (CIDR notation) for this project
         Type: String
